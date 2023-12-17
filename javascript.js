@@ -62,11 +62,10 @@ function clickWeapon(event){
  function updateStats(winner, wObject){
     if (winner === "Player"){
         playerScore.textContent= parseInt(playerScore.textContent, 10) +1;
-        roundResults.textContent = getGameSummary(winner, wObject)
     }else if (winner ==="Computer"){
         computerScore.textContent= parseInt(computerScore.textContent,10)+1;
-        roundResults.textContent = getGameSummary(winner,wObject);
     }
+    roundResults.textContent = getGameSummary(winner,wObject);
 }
  
 //creates a cool sentence for the Round Results Text.
@@ -88,7 +87,7 @@ function clickWeapon(event){
  function evaluateMatch(){
     let matchEnd = false;
     if (parseInt(computerScore.textContent,10)=== 5){
-        finaleText.textContent = "You lose! The Machine got to 5 first.";
+        finaleText.textContent = "You lose. The Computer got to 5 first.";
         matchEnd = true;
     } else if (parseInt(playerScore.textContent,10)=== 5){
         finaleText.textContent = "You Win! You are the CHAMPION of Rock Paper Scissors";
