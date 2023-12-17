@@ -1,70 +1,103 @@
+let newMatchButton = document.querySelector('.newGame');
+let weaponChoice = document.querySelector(".weaponChoice");
+let playerScore=document.querySelector(".playerScore");
+let computerScore=document.querySelector(".computerScore");
+let roundResults =document.querySelector(".roundResults");
+let rightBox = document.querySelector(".right");
+let finaleText = document.querySelector(".finaleText")
 
-function getComputerChoice(){
-    /*Create Randome Number. Multiply it by 3. floor it.
-    If 0 - return Rock
-    If 1 - return Paper
-    If 2 - returnScissors*/
-   switch (Math.floor(Math.random()*3)){
-    case 0: return "rock";
-        break;
-    case 1: return "paper";
-        break;
-    case 2: return "scissors";
-        break;
-   }
+newMatchButton.addEventListener("click", ()=> {
+    weaponChoice.addEventListener("click", clickWeapon);
+    roundResults.textContent = "";
+    finaleText.textContent = "";
+    computerScore.textContent = 0;
+    playerScore.textContent = 0;
+});
+
+
+weaponChoice.addEventListener("click", clickWeapon);
+
+
+ //Established A Game is Played when the user CLICKs a weapon
+function clickWeapon(event){
+    let target = event.target;
+    //game runs if a valid target is selected
+    if (target.id !=""){
+        evaluateGame(String(target.id));
+        evaluateMatch();
+    };
 }
 
-function gameRound(){
-    const compSelect = getComputerChoice();
-    console.log(compSelect);
-    const playerSelect = prompt("What do you Pick?").toLowerCase();
-    console.log(playerSelect);
-    if (compSelect === playerSelect){
-        console.log("It's a tie"); 
-        console.log("No Score Increase")
-        return "Tie";
+
+ function evaluateGame(playerChoice){
+   
+    const compChoice = getComputerChoice();
+     //compare the choices. Updates Stats based on the Winner (if there is one)
+     if (compChoice === playerChoice){
+        roundResults.textContent = "Twas a Tie, you both picked "+playerChoice+".";
+
+     }
+     else if (playerChoice === "rock" && compChoice === "scissors" || 
+                 playerChoice === "paper" && compChoice === "rock" ||
+                 playerChoice === "scissors" && compChoice === "paper"){
+        updateStats("Player", playerChoice);
+     }
+     else {
+        updateStats("Computer", compChoice);
+     }
+ }
+
+ function getComputerChoice(){
+    switch (Math.floor(Math.random()*3)){
+     case 0: return "rock";
+         break;
+     case 1: return "paper";
+         break;
+     case 2: return "scissors";
+         break;
     }
-    else if (playerSelect === "rock" && compSelect === "scissors" || 
-                playerSelect === "paper" && compSelect === "rock" ||
-                playerSelect === "scissors" && compSelect === "paper"){
-        console.log(gameSummary("Player", playerSelect));
-        return "Player";
-    }
-    else {
-        console.log(gameSummary("Computer", compSelect))
-        return "Computer"
+ }
+
+ //updates the score and results
+ function updateStats(winner, wObject){
+    if (winner === "Player"){
+        playerScore.textContent= parseInt(playerScore.textContent, 10) +1;
+        roundResults.textContent = getGameSummary(winner, wObject)
+    }else if (winner ==="Computer"){
+        computerScore.textContent= parseInt(computerScore.textContent,10)+1;
+        roundResults.textContent = getGameSummary(winner,wObject);
     }
 }
+ 
+//creates a cool sentence for the Round Results Text.
+ function getGameSummary(winner, wObject){
+     //
+     switch (wObject) {
+        /* case "rock": return winner + " wins! " + winner + "'s Rock smashes Scissors.";
+         break;*/
+         case "rock": return `${winner} wins. ${winner}'s Rock smashes Scissors.`;
+         break;
+         case "paper": return winner + " wins. " + winner + "'s Paper covers Rock.";
+         break;
+         case "scissors": return winner + " wins. " + winner + "'s Scissors cuts Paper.";
+         break;    }
+ 
+ }
 
-function gameSummary(winner, wObject){
-    switch (wObject) {
-        case "rock": return winner + " wins! " + winner + "'s Rock smashes Scissors.";
-        break;
-        case "paper": return winner + " wins! " + winner + "'s Paper covers Rock";
-        break;
-        case "scissors": return winner + " wins! " + winner + "'s Scissors cuts Paper";
-        break;    }
-
-}
-
-function matchOfFive(){
-    let playerScore = 0;
-    let computerScore = 0;
-    let lastWinner;
-    while (playerScore <5 && computerScore <5){ 
-        lastWinner = gameRound();
-        lastWinner === "Player" ? playerScore++ :
-        lastWinner === "Computer" ? computerScore++: "";
-        console.log("Last Winner Was "+lastWinner);
-        console.log("Player Score: "+playerScore)
-        console.log("Computer Score: "+computerScore)
+ 
+ function evaluateMatch(){
+    let matchEnd = false;
+    if (parseInt(computerScore.textContent,10)=== 5){
+        finaleText.textContent = "You lose! The Machine got to 5 first.";
+        matchEnd = true;
+    } else if (parseInt(playerScore.textContent,10)=== 5){
+        finaleText.textContent = "You Win! You are the CHAMPION of Rock Paper Scissors";
+        matchEnd = true;
     }
-    if (playerScore==5){
-        console.log("You are the Grand WINNER!!!");
-    }else if(computerScore==5){ 
-        console.log("You lost. Loser");
-    }else {console.log("Uhh, what did you do? the Match isn't over")
-    }
-}
 
-matchOfFive();
+    //cancels the weaponChoice ability when game is over
+    if (matchEnd){
+        weaponChoice.removeEventListener("click", clickWeapon);
+    };    
+    }
+    

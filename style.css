@@ -1,0 +1,54 @@
+*{
+    text-align: center;
+}
+
+.container {
+    display: flex;
+    justify-content: center;
+    gap: 50px;
+}
+
+.left, .right{
+    width: 400px;
+}
+
+.left h4{
+    text-align: right;
+}
+
+.right h4{
+    text-align: left;
+}
+img, button{
+    width:200px;
+    border: 4px solid slategray;
+    border-radius: 10px;
+    padding: 10px;
+    font-size: large;
+    font-weight: 700;
+}
+
+img:hover, button:hover{
+    border-color: brown;
+}
+
+img:active, button:active{
+    background-color: turquoise;
+}
+
+ul{
+    list-style-type: none;
+    margin: 0px;
+    padding: 0px;
+}
+
+li{
+    text-align: right;
+}
+
+p {
+    margin: 0px;
+}
+.roundResults, .finaleText{
+    text-align: left;
+}

@@ -3,11 +3,42 @@
     <head>
         <meta charset ="utf-8">
         <title>Rock Paper Scissors</title>
-        <script src="javascript.js"></script>
-        <style src="style.css"></style>
+        <script src="javascript.js" defer></script>
+        <link rel="stylesheet" href="style.css">
     </head>
     <body>
-
+        <h1>Welcome to the Rock Paper Scissors Showdown!</h1>
+        <button class='newGame'>Start New Match Best of 9</button>
+        <h2>Choose Your Weapon</h2>
+        <div class="weaponChoice">
+            <img class='weapon'id="rock" src="./images/stone.png">
+            <img class='weapon' id="paper" src="./images/paper.png">
+            <img class='weapon' id="scissors" src="./images/scissors.png">
+        </div>
+        <div class="container">
+            <div class="left">
+                <h4>Score</h4>
+                <ul class="ScoreCard">
+                    <li>Player Score: <span class="playerScore">0</span></li>
+                    <li>Computer Score: <span class = "computerScore">0</span></li>
+                </ul>
+            </div>
+            <div class ="right">
+                <h4>Round Results:</h4>
+                <p class="roundResults"></p>
+                <p class="finaleText"></p>
+            </div>
+        </div>
     </body>
 
 </html>
+
+
+<!--
+    Header 
+    New Game Button
+
+    RPS Buttons
+
+    Score + Chat
+-->
